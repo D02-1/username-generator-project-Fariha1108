@@ -22,17 +22,45 @@ function getWords()
 }
 
 // - Eine Funktion um die zufällige Nummer hinter dem Namen zu generieren
+/**
+ * @function creatRandomNumber
+ * @description Creates a random number according to a minimal and maximal value
+ * @param { number } minNumber 
+ * @param { number } maxNumber 
+ * @returns { number }
+ */
 function creatRandomNumber(minNumber, maxNumber)
 {
     // Wir erschaffen eine zufallszahl aus einer minimalen und einer maximalen zahl
     const num = Math.floor(Math.random() * (maxNumber - minNumber) + minNumber);
 
-    console.log(num);
+    // randomBeispiel = 0.5 * 50000 - 10000 = 15000 + 10000 = 25000
+
+    // Wir geben die zufällige nummer zurück
+    return num;
 }
 
-creatRandomNumber(10000, 50000);
-
 // - Eine Funktion mit der wir den ersten Buchstaben des jeweiligen Wortes groß schreiben (Pascalcase)
+function capitalizeString(word)
+{
+    // Prüfe ob kein Word vorhanden ist
+    if(word === undefined || word.length === 0 || !isNaN(word))
+    {
+        return 'Default';
+    }
+
+    // Wir nehmen den ersten buchstaben von unserem String, und ändern ihn auf UpperCase
+    const wordStart = word.charAt(0).toUpperCase();
+
+    // Wir nehmen den Rest des Strings und ändern ihn auf LowerCase
+    const wordRest = word.substring(1).toLowerCase();
+
+    // Wir geben den fertigen String zurück
+    return wordStart + wordRest;
+}
+
+console.log(capitalizeString('0'));
+
 // - Eine Funktion mit der wir den benutzernamen generieren und auf die ergebnisse der anderen funktionen zugreifen
 // - Einen export, um die Applikation in einer anderen datei zu nutzen
 
