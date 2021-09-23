@@ -1,5 +1,6 @@
 const { log } = require('console');
 const fs = require('fs'); // FileSystem, zum lesen des dateisystems
+const { maxHeaderSize } = require('http');
 const path = require('path'); // Path, zum arbeiten mit dateipfaden
 
 // Beutzernamen Generator
@@ -29,7 +30,7 @@ function getWords()
  * @param { number } maxNumber 
  * @returns { number }
  */
-function creatRandomNumber(minNumber, maxNumber)
+function createRandomNumber(minNumber, maxNumber)
 {
     // Wir erschaffen eine zufallszahl aus einer minimalen und einer maximalen zahl
     const num = Math.floor(Math.random() * (maxNumber - minNumber) + minNumber);
@@ -41,6 +42,12 @@ function creatRandomNumber(minNumber, maxNumber)
 }
 
 // - Eine Funktion mit der wir den ersten Buchstaben des jeweiligen Wortes groß schreiben (Pascalcase)
+/**
+ * @function capitalizeString
+ * @description Takes the first letter of a string and changes it to Uppercase, then returns string
+ * @param { string } word 
+ * @returns {string }
+ */
 function capitalizeString(word)
 {
     // Prüfe ob kein Word vorhanden ist
@@ -59,9 +66,32 @@ function capitalizeString(word)
     return wordStart + wordRest;
 }
 
-console.log(capitalizeString('0'));
-
 // - Eine Funktion mit der wir den benutzernamen generieren und auf die ergebnisse der anderen funktionen zugreifen
+/**
+ * @function createRandomUserName
+ * @description Creates a random username
+ * @param { number } maxNumber 
+ * @returns { string }
+ */
+function createRandomUserName(maxNumber)
+{
+    // Wir holen uns die Wörter
+    const words = getWords();
+
+   // Wir holen uns aus der wortliste die adjektive
+   const adj = words.adjs[ Math.floor(Math.random() * (words.adjs.length - 1)) ]; 
+
+   // Wir holen uns aus der wortliste die nomen
+   const noun = words.nouns[ Math.floor(Math.random() * (words.nouns.length - 1)) ]
+
+   // Wir holen uns unsere zufallszahl
+   const randomNumber = createRandomNumber(10000, maxNumber);
+
+   const finalUserName = `${ capitalizeString(adj) }${ capitalizeString(noun) }${ maxNumber !== 0 ? randomNumber : '' }`; 
+
+   return finalUserName;
+}
+
 // - Einen export, um die Applikation in einer anderen datei zu nutzen
 
 
